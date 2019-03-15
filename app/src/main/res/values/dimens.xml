@@ -3,4 +3,7 @@
     <dimen name="overview_text_size">13sp</dimen>
     <dimen name="normal_margin">8dp</dimen>
     <dimen name="movie_name_text_size">16sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="margin_large">20dp</dimen>
 </resources>

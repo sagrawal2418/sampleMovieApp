@@ -5,9 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.example.myapplication.main.data.model.Movie;
-import com.example.myapplication.main.data.remote.FailureListener;
 import com.example.myapplication.main.data.remote.MovieRepository;
-import com.example.myapplication.main.data.remote.SuccessListener;
 
 import java.util.List;
 
@@ -30,18 +28,12 @@ public class MovieViewModel extends ViewModel {
 
     public void getUpcomingMovies() {
         _loading.setValue(true);
-        movieRepository.fetchUpcomingMovies(new SuccessListener() {
-            @Override
-            public void onSuccess(List<Movie> movies) {
-                _loading.setValue(false);
-                _items.setValue(movies);
-            }
-        }, new FailureListener() {
-            @Override
-            public void onFailure(String error) {
-                _loading.setValue(false);
-                _error.setValue(error);
-            }
+        movieRepository.fetchUpcomingMovies(movies -> {
+            _loading.setValue(false);
+            _items.setValue(movies);
+        }, error -> {
+            _loading.setValue(false);
+            _error.setValue(error);
         });
     }
 }

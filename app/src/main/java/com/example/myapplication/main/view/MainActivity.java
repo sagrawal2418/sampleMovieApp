@@ -1,19 +1,15 @@
 package com.example.myapplication.main.view;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.main.data.model.Movie;
 import com.example.myapplication.main.viewmodel.MovieViewModel;
-
-import java.util.List;
 
 import kotlin.Lazy;
 
@@ -31,29 +27,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        viewModel.getValue().getUpcomingMovies();
         progressBar = findViewById(R.id.progressBar);
 
         setupRecyclerView();
 
-        viewModel.getValue().items.observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(@Nullable List<Movie> movies) {
-                recyclerViewAdapter.replaceList(movies);
-            }
-        });
+        viewModel.getValue().items.observe(this, movies -> recyclerViewAdapter.replaceList(movies));
 
-        viewModel.getValue().loading.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                progressBar.setVisibility(aBoolean != null && aBoolean ? View.VISIBLE : View.GONE);
-            }
-        });
+        viewModel.getValue().loading.observe(this, aBoolean -> progressBar.setVisibility(aBoolean != null && aBoolean ? View.VISIBLE : View.GONE));
+
+        viewModel.getValue().error.observe(this, s -> Toast.makeText(MainActivity.this,
+                s, Toast.LENGTH_LONG).show());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        viewModel.getValue().getUpcomingMovies();
     }
 
     private void setupRecyclerView() {
