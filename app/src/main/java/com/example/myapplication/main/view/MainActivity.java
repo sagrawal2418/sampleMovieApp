@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewModel.getValue().getUpcomingMovies();
         progressBar = findViewById(R.id.progressBar);
 
         setupRecyclerView();
@@ -38,11 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.getValue().error.observe(this, s -> Toast.makeText(MainActivity.this,
                 s, Toast.LENGTH_LONG).show());
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        viewModel.getValue().getUpcomingMovies();
     }
 
     private void setupRecyclerView() {
