@@ -22,8 +22,7 @@ import static org.koin.java.standalone.KoinJavaComponent.inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Lazy<MovieViewModel> viewModel = inject(MovieViewModel.class);
-    private RecyclerView recyclerView;
+    private final Lazy<MovieViewModel> viewModel = inject(MovieViewModel.class);
     private RecyclerViewAdapter recyclerViewAdapter;
     private ProgressBar progressBar;
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        recyclerView = findViewById(R.id.movies_recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.movies_recyclerView);
         recyclerViewAdapter = new RecyclerViewAdapter(null);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);

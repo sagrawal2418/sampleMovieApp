@@ -2,7 +2,7 @@ package com.example.myapplication.main.data.remote;
 
 import com.example.myapplication.main.data.model.Movie;
 import com.example.myapplication.main.data.model.MovieResponse;
-import com.example.myapplication.main.data.remote.retrofit.MovieService;
+import com.example.myapplication.main.data.remote.retrofit.MovieApi;
 import com.example.myapplication.main.data.remote.retrofit.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 public class MovieRepositoryImpl implements MovieRepository {
 
-    private RetrofitClient retrofitClient;
+    private final RetrofitClient retrofitClient;
 
     public MovieRepositoryImpl(RetrofitClient retrofitClient) {
         this.retrofitClient = retrofitClient;
@@ -23,7 +23,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public void fetchUpcomingMovies(final SuccessListener successListener, final FailureListener failureListener) {
-        MovieService service = retrofitClient.createRetrofit().create(MovieService.class);
+        MovieApi service = retrofitClient.createRetrofit().create(MovieApi.class);
         Call<MovieResponse> call = service.getUpcomingMovies();
         call.enqueue(new Callback<MovieResponse>() {
             @Override

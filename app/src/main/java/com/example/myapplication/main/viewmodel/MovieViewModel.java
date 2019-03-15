@@ -13,19 +13,19 @@ import java.util.List;
 
 public class MovieViewModel extends ViewModel {
 
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
 
     public MovieViewModel(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    private MutableLiveData<List<Movie>> _items = new MutableLiveData<>();
-    public LiveData<List<Movie>> items = _items;
+    private final MutableLiveData<List<Movie>> _items = new MutableLiveData<>();
+    public final LiveData<List<Movie>> items = _items;
 
-    private MutableLiveData<Boolean> _loading = new MutableLiveData<>();
-    public LiveData<Boolean> loading = _loading;
+    private final MutableLiveData<Boolean> _loading = new MutableLiveData<>();
+    public final LiveData<Boolean> loading = _loading;
 
-    private MutableLiveData<String> _error = new MutableLiveData<>();
+    private final MutableLiveData<String> _error = new MutableLiveData<>();
     public LiveData<String> error = _error;
 
     public void getUpcomingMovies() {
